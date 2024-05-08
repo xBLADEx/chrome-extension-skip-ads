@@ -1,12 +1,21 @@
 'use strict';
 
 function skipAd() {
-  var video = document.querySelector('video');
-  video.currentTime = video.duration;
+  const video = document.querySelector('video');
+  const twitchAd = document.querySelector('[data-a-target="ax-overlay"]');
+
+  if (twitchAd) {
+    twitchAd.remove();
+  }
+
+  // Twitch Ad is in a wrapped iframe so don't progress Twitch video
+  if (!video.hasAttribute('playsinline')) {
+    video.currentTime = video.duration;
+  }
 }
 
 function continueButton() {
-  var continueButton = document.querySelector('.ytp-ad-skip-button');
+  const continueButton = document.querySelector('.ytp-ad-skip-button');
 
   if (continueButton) {
     continueButton.click();
